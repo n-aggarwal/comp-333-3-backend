@@ -17,6 +17,8 @@ class UserController extends BaseController
                     $intLimit = $arrQueryStringParams['limit'];
                 }
                 $arrUsers = $userModel->getUsers($intLimit);
+                $arrUsers['query_string'] = $_SERVER['QUERY_STRING'];
+                $arrUsers['error'] = $arrQueryStringParams;
                 $responseData = json_encode($arrUsers);
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';

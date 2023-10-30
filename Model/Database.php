@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . "/inc/bootstrap.php";
+require "/Applications/XAMPP/xamppfiles/htdocs/inc/bootstrap.php";
 
 class Database
 {
@@ -8,7 +8,7 @@ class Database
     public function __construct()
     {
 
-        require __DIR__ . "/inc/config.php";
+        require "/Applications/XAMPP/xamppfiles/htdocs/inc/config.php";
 
         try {
             $this->connection = new mysqli($servername, $username, $password, $dbname);
