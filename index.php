@@ -16,8 +16,19 @@
 		exit();
 	}
 
-	require PROJECT_ROOT_PATH . "/Controller/Api/UserController.php";
-	$objFeedController = new UserController();
-	$strMethodName = $uri[3] . 'Action';
-	$objFeedController->{$strMethodName}();
+	if($uri[2] == 'user') {
+		require PROJECT_ROOT_PATH . "/Controller/Api/UserController.php";
+		$objFeedController = new UserController();
+		$strMethodName = $uri[3] . 'Action';
+		$objFeedController->{$strMethodName}();
+	}
+
+	else if ($uri[2] == 'music') {
+		require PROJECT_ROOT_PATH . "/Controller/Api/MusicController.php";
+		$objFeedController = new MusicController();
+		$strMethodName = $uri[3] . 'Action';
+		$objFeedController->{$strMethodName}();
+	}
+
+
 ?>
