@@ -34,7 +34,7 @@ class UserController extends BaseController
                     $responseData = array(
                         "success" => true,
                         "message" => "Authentication successful",
-                        "user_id" => $username,
+                        "username" => $username,
                     );
                     
                     $responseData = json_encode($responseData);
@@ -48,6 +48,88 @@ class UserController extends BaseController
                     
                     $responseData = json_encode($responseData);
                 }
+            }
+            catch (Error $e) {
+                $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
+                $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+            }
+        }
+        else {
+            $strErrorDesc = 'Method not supported/Wrong Params';
+            $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
+        }
+         // send output 
+         if (!$strErrorDesc) {
+            $this->sendOutput(
+                $responseData,
+                array('Content-Type: application/json', 'HTTP/1.1 200 OK')
+            );
+        } else {
+            $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
+                array('Content-Type: application/json', $strErrorHeader)
+            );
+        }
+    }
+
+    public function registerAction() {
+        $strErrorDesc = '';
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        $jsonData = file_get_contents("php://input");
+
+        // Decode the JSON data into a PHP array
+        $data = json_decode($jsonData, true); // Set the second argument to true for an associative array
+
+
+        if (strtoupper($requestMethod) == 'POST' && isset($data['username']) && isset($data['password']) && isset($data['confirm_password'])) {
+            try {
+
+                // Access the values
+                $username = $data["username"];
+                $password = $data["password"];
+                $confirm_password = $data["confirm_password"];
+
+
+                if ($password !== $confirm_password) {
+                    $responseData = array(
+                        "success" => false,
+                        "message" => "Passwords do not match",
+                    );
+                }
+                else {
+                    $userModel = new UserModel();
+
+                    //check if username already in DB
+                    $username_check = $userModel->getUserByUsername($username);
+
+                    if (!empty($username_check)) {
+                        $responseData = array(
+                            "success" => false,
+                            "message" => "Username already taken",
+                        );
+                    }
+                    else {
+                        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                        $arrUser = $userModel->createUser($username, $hashed_password);
+
+                        ini_set('session.cookie_lifetime', 20 * 60);
+                        session_start();
+    
+                        $_SESSION["loggedin"] = true;
+                        $_SESSION["username"] = $username;
+
+                        $responseData = array(
+                            "success" => true,
+                            "message" => "Registration successful",
+                            "username" =>  $_SESSION["username"],
+                        );
+                        
+    
+                    }
+
+                }
+            
+                $responseData = json_encode($responseData);
+
             }
             catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
