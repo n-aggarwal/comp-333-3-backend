@@ -16,7 +16,7 @@ class MusicController extends BaseController
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $musicModel = new MusicModel();
-                $intLimit = 10;
+                $intLimit = 1000;
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
                     $intLimit = $arrQueryStringParams['limit'];
                 }

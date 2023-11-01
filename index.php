@@ -1,11 +1,20 @@
 <?php
-	ini_set("display_errors", 1); 		
-	error_reporting(E_ALL);
 
 	require "/Applications/XAMPP/xamppfiles/htdocs/inc/bootstrap.php";
 
+	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+        header('Access-Control-Allow-Headers: Content-Type, Custom-Header');
+        header('Referrer-Policy: no-referrer');
+        exit;
+    }
+
 	//CORS Header (NOT SECURE AS OF RIGHT NOW)
-	header ("Access-Control-Allow-Origin:*");
+	header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+    header('Access-Control-Allow-Headers: Content-Type, Custom-Header');
+	header('Referrer-Policy: no-referrer-when-downgrade'); 
 
 	$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 	$uri = explode( '/', $uri );
