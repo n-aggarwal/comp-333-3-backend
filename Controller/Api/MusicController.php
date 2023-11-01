@@ -8,6 +8,8 @@ class MusicController extends BaseController
  */
     public function listAction(){
 
+        session_start();
+
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $arrQueryStringParams = $this->getQueryStringParams();
@@ -46,6 +48,9 @@ class MusicController extends BaseController
     }
 
     public function updateAction(){
+
+        session_start();
+
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $jsonData = file_get_contents("php://input");
@@ -64,19 +69,29 @@ class MusicController extends BaseController
 
             try {
                 $musicModel = new MusicModel();
-                $boolUpdate = $musicModel->updateMusic($id, $artist, $song, $rating);
-                if ($boolUpdate) {
-                    $responseData = array("success" => true);
+
+                $username = $_SESSION["username"];
+                $song_username = $musicModel->getMusicbyId($id);
+                if ($song_username[0]["username"] === $username) {
+
+                    $boolUpdate = $musicModel->updateMusic($id, $artist, $song, $rating);
+                    if ($boolUpdate) {
+                        $responseData = array("success" => true);
+                    }
+                    else {
+                        $responseData = array("success" => false);
+                    }
+
+                    $responseData = json_encode($responseData);
                 }
                 else {
-                    $responseData = array("success" => false);
+                    $strErrorDesc = 'Something went wrong! Please contact support. Username doesn\'t match';
+                    $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
                 }
-
-                $responseData = json_encode($responseData);
                 
             }
             catch (Error $e) {
-                $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
+                $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support';
                 $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
             }
         }
