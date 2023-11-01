@@ -44,7 +44,64 @@ class MusicController extends BaseController
     }
 
     public function deleteAction(){
-        //TODO
+        session_start();
+
+        $strErrorDesc = '';
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        $jsonData = file_get_contents("php://input");
+
+        // Decode the JSON data into a PHP array
+        $data = json_decode($jsonData, true); // Set the second argument to true for an associative array
+
+        if (strtoupper($requestMethod) == 'POST' && isset($data['id'])) {
+            
+            // Access the values
+            $id = $data["id"];
+
+            try {
+                $musicModel = new MusicModel();
+
+                $username = $_SESSION["username"];
+                $song_username = $musicModel->getMusicbyId($id);
+                if ($song_username[0]["username"] === $username) {
+
+                    $boolDelete = $musicModel->deleteMusic($id);
+                    if ($boolDelete) {
+                        $responseData = array("success" => true);
+                    }
+                    else {
+                        $responseData = array("success" => false);
+                    }
+
+                    $responseData = json_encode($responseData);
+                }
+                else {
+                    $strErrorDesc = 'Something went wrong! Please contact support. Username doesn\'t match';
+                    $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+                }
+                
+            }
+            catch (Error $e) {
+                $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support';
+                $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+            }
+        }
+        else {
+            $strErrorDesc = 'Method not supported/Wrong Params';
+            $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
+        }
+
+        // send output 
+        if (!$strErrorDesc) {
+            $this->sendOutput(
+                $responseData,
+                array('Content-Type: application/json', 'HTTP/1.1 200 OK')
+            );
+        } else {
+            $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
+                array('Content-Type: application/json', $strErrorHeader)
+            );
+        }
     }
 
     public function updateAction(){

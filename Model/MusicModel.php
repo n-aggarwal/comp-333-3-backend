@@ -27,5 +27,17 @@ class MusicModel extends Database
             }
     }
 
+    public function deleteMusic ($id) {
+        $sql = "DELETE FROM ratings WHERE id = ?";
+        $stmt = mysqli_prepare($this->connection, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        try {
+            return (mysqli_stmt_execute($stmt) === TRUE);
+        }
+        catch (Exception $e) {
+            return FALSE;
+        }
+    }
+
 
 }
