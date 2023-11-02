@@ -39,5 +39,44 @@ class MusicModel extends Database
         }
     }
 
+    public function getMusicId($username, $song, $artist) {
+        $checkQuery = "SELECT id FROM ratings WHERE username = ? AND artist = ? AND song = ?";
+        $stmt = $this->connection->prepare($checkQuery);
 
+        if ($stmt) {
+            $stmt->bind_param("sss", $username, $artist, $song);
+
+            try {
+                $stmt->execute();
+                $result = $stmt->get_result();
+            }
+            catch (Exception $e) {
+                return FALSE;
+             } 
+        }
+
+    return $result;
+
+    }
+
+    public function createMusic ($username, $artist, $song, $rating) {
+        $insertQuery = "INSERT INTO ratings (username, artist, song, rating) VALUES (?, ?, ?, ?)";
+        $stmt = $this->connection->prepare($insertQuery);
+
+        if ($stmt) {
+            $stmt->bind_param("sssi", $username, $artist, $song, $rating);
+
+            try {
+                $stmt->execute();
+                return TRUE;
+            }
+            catch (Exception $e) {
+                return FALSE;
+             } 
+        }
+
+        else {
+            return FALSE;
+        }
+    }
 }
