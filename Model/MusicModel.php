@@ -11,7 +11,7 @@ class MusicModel extends Database
     }
 
     public function getMusicbyId($id) {
-        return $this->select("SELECT * FROM ratings WHERE id = ?", ["i", $id]);
+        return $this->select("SELECT username FROM ratings WHERE id = ?", ["i", $id]);
     }
 
     public function updateMusic ($id, $artist, $song, $rating) {

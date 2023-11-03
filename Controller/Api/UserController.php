@@ -25,7 +25,6 @@ class UserController extends BaseController
 
                 if (password_verify($password, $arrUser[0]["password"])) {
                 
-                    ini_set('session.cookie_lifetime', 20 * 60);
                     session_start();
 
                     $_SESSION["loggedin"] = true;
@@ -111,7 +110,6 @@ class UserController extends BaseController
                         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                         $arrUser = $userModel->createUser($username, $hashed_password);
 
-                        ini_set('session.cookie_lifetime', 20 * 60);
                         session_start();
     
                         $_SESSION["loggedin"] = true;
