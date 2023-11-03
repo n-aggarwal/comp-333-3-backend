@@ -3,15 +3,17 @@
 	require "/Applications/XAMPP/xamppfiles/htdocs/inc/bootstrap.php";
 
 	if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Origin: http://localhost:3000');
         header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+		header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Allow-Headers: Content-Type, Custom-Header');
         header('Referrer-Policy: no-referrer');
         exit;
     }
 
 	//CORS Header (NOT SECURE AS OF RIGHT NOW)
-	header('Access-Control-Allow-Origin: *');
+	header('Access-Control-Allow-Origin: http://localhost:3000');
+	header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Custom-Header');
 	header('Referrer-Policy: no-referrer-when-downgrade'); 
