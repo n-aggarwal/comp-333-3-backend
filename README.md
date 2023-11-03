@@ -1,13 +1,13 @@
 # comp-333-3-backend
 
-This repository contains the backend code for COMP333 Homework 3 (Wesleyan University). The code for the frontend is in the [comp-333-3-frontend](https://github.com/ananafrida/comp-333-3-frontend) owned by [@ananafrida](https://github.com/ananafrida). The contribution for this homework is as follows (as of right now):<br />
+This repository contains the backend code for COMP333 Homework 3 (Wesleyan University). The code for the frontend is in the [comp-333-3-frontend](https://github.com/ananafrida/comp-333-3-frontend) owned by [@ananafrida](https://github.com/ananafrida). The contribution for this homework is as follows:<br />
 
 - Backend:
-  - Nishant Aggarwal:
-  - Anan Afrida:
+  - Nishant Aggarwal:100%
+  - Anan Afrida:0%
 - Frontend:
-  - Nishant Aggarwal:
-  - Anan Afrida: <br />
+  - Nishant Aggarwal: 35%
+  - Anan Afrida: 65% <br />
 
 The project/homework will be complete by Friday 10am. We plan to utilize 2 of our 5 late days for this submission.<br />
 
@@ -58,6 +58,8 @@ Once everything is setup, you should be able to test the endpoints listed below 
 
 ## API Endpoints
 
+Note because of `_SESSION_ID`, you need to login or register before using the music API's.
+
 ### User Endpoints
 
 - **/user/login**
@@ -68,6 +70,10 @@ Once everything is setup, you should be able to test the endpoints listed below 
   - Type: POST
   - Parameters: `{username: string, password: string, confirm_password: string}`
   - Response: `{success: bool, message: string, username (if success): string}`
+- **/user/logout**
+  - Type: POST
+  - Parameters: `{}`
+  - Response:  {success: bool}
 
 ### Music Endpoints
 
