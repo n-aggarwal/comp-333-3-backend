@@ -3,11 +3,11 @@
 This repository contains the backend code for COMP333 Homework 3 (Wesleyan University). The code for the frontend is in the [comp-333-3-frontend](https://github.com/ananafrida/comp-333-3-frontend) owned by [@ananafrida](https://github.com/ananafrida). The contribution for this homework is as follows:<br />
 
 - Backend:
-  - Nishant Aggarwal:100%
-  - Anan Afrida:0%
+  - Nishant Aggarwal:80%
+  - Anan Afrida:20%
 - Frontend:
-  - Nishant Aggarwal: 40%
-  - Anan Afrida: 60% <br />
+  - Nishant Aggarwal: 30%
+  - Anan Afrida: 70% <br />
 
 The project/homework will be complete by Friday 10am. We plan to utilize 2 of our 5 late days for this submission.<br />
 
