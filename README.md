@@ -6,8 +6,8 @@ This repository contains the backend code for COMP333 Homework 3 (Wesleyan Unive
   - Nishant Aggarwal:100%
   - Anan Afrida:0%
 - Frontend:
-  - Nishant Aggarwal: 35%
-  - Anan Afrida: 65% <br />
+  - Nishant Aggarwal: 40%
+  - Anan Afrida: 60% <br />
 
 The project/homework will be complete by Friday 10am. We plan to utilize 2 of our 5 late days for this submission.<br />
 
