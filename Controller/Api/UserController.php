@@ -14,17 +14,19 @@ class UserController extends BaseController
         // Decode the JSON data into a PHP array
         $data = json_decode($jsonData, true); // Set the second argument to true for an associative array
 
+
+
+        if (strtoupper($requestMethod) == 'POST' && isset($data['username']) && isset($data['password'])) {
         // Access the values
         $username = $data["username"];
         $password = $data["password"];
-
-        if (strtoupper($requestMethod) == 'POST' && isset($data['username']) && isset($data['password'])) {
             try {
                 $userModel = new UserModel();
                 $arrUser = $userModel->getUserByUsername($username);
 
                 if (password_verify($password, $arrUser[0]["password"])) {
                 
+                    ini_set('session.cookie_lifetime', 20 * 60);
                     session_start();
 
                     $_SESSION["loggedin"] = true;
@@ -37,7 +39,9 @@ class UserController extends BaseController
                     );
                     
                     $responseData = json_encode($responseData);
-
+                    $cookie_name = "login";
+                    $cookie_value = "login";
+                    setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 =
                 }
                 else {
                     $responseData = array(
@@ -70,22 +74,6 @@ class UserController extends BaseController
         }
     }
 
-    public function logoutAction () {
-
-        session_start();
-        session_destroy();
-
-        $responseData = array(
-            "success" => true,
-        );
-
-        $this->sendOutput(
-            $responseData,
-            array('Content-Type: application/json', 'HTTP/1.1 200 OK')
-        );
-
-    }
- 
     public function registerAction() {
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
@@ -126,6 +114,7 @@ class UserController extends BaseController
                         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                         $arrUser = $userModel->createUser($username, $hashed_password);
 
+                        ini_set('session.cookie_lifetime', 20 * 60);
                         session_start();
     
                         $_SESSION["loggedin"] = true;

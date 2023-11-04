@@ -42,11 +42,6 @@ class BaseController
     protected function sendOutput($data, $httpHeaders=array())
     {
         // header_remove('Set-Cookie');
-        header('Access-Control-Allow-Origin: http://localhost:3000');
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-        header('Access-Control-Allow-Headers: Content-Type, Custom-Header');
-        header('Referrer-Policy: no-referrer-when-downgrade');        
         if (is_array($httpHeaders) && count($httpHeaders)) {
             foreach ($httpHeaders as $httpHeader) {
                 header($httpHeader);
