@@ -109,19 +109,19 @@ For testing this backend API, we used PHPUnitTest as per the homework 5 requirem
 3. Have the following songs in the `ratings` table of the database
 ```json
 {
-  'id' => 55,
+  'id' : 55,
   'username' : 'test1'
-  'artist' => 'artist_1',
-  'song' => 'song_1',
-  'rating' => '1',
+  'artist' : 'artist_1',
+  'song' : 'song_1',
+  'rating' : '1',
 }
 
 {
-  'id' => 56,
+  'id' : 56,
   'username' : 'test1'
-  'artist' => 'artist_2',
-  'song' => 'song_2',
-  'rating' => '2',
+  'artist' : 'artist_2',
+  'song' : 'song_2',
+  'rating' : '2',
 }
 ```
 4. Do not have a song with the following info `{ 'artist' => 'test_artist_4', 'song' => 'test_song_4', 'rating' => '4',}`.  We will create this in the test.
