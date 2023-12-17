@@ -105,26 +105,27 @@ For testing this backend API, we used PHPUnitTest as per the homework 5 requirem
   "password": "1234567890",
 }
 ```
+**Please Create the user using the register endpoint to make sure that the password is hashed and salted before being saved in the database. If entered manually it will lead to failing tests. (The comment in bold was added after the homework deadline for clarification. No changes to code are made.)**
 2. Do not have a user in the `users` table with the username `test2`. We will use this username to test registration. <br />
 3. Have the following songs in the `ratings` table of the database
 ```json
 {
-  'id' => 55,
-  'username' : 'test1'
-  'artist' => 'artist_1',
-  'song' => 'song_1',
-  'rating' => '1',
+  "id" : 55,
+  "username" : "test1"
+  "artist" : "artist_1",
+  "song" : "song_1",
+  "rating" : "1",
 }
 
 {
-  'id' => 56,
-  'username' : 'test1'
-  'artist' => 'artist_2',
-  'song' => 'song_2',
-  'rating' => '2',
+  "id" : 56,
+  "username" : "test1"
+  "artist" : "artist_2",
+  "song" : "song_2",
+  "rating" : "2",
 }
 ```
-4. Do not have a song with the following info `{ 'artist' => 'test_artist_4', 'song' => 'test_song_4', 'rating' => '4',}`.  We will create this in the test.
+4. Do not have a song with the following info `{ 'artist' : 'test_artist_4', 'song' : 'test_song_4', 'rating' : '4',}`.  We will create this in the test.
 
 That's it! Now run the commands: 
 ```bash
