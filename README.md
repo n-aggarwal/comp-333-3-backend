@@ -1,14 +1,10 @@
-# comp-333-3-backend
+# Music Rating Website Backend
 
-**NOTE** Testing instructions are at the bottom of the Readme. 
-
-This repository contains the backend code for COMP333 Homework 3 (Wesleyan University). The code for the frontend is in the [comp-333-3-frontend](https://github.com/ananafrida/comp-333-3-frontend) owned by [@ananafrida](https://github.com/ananafrida). 
-
-The project/homework will be complete by Friday 10am. We plan to utilize 2 of our 5 late days for this submission.<br />
+ The code for the frontend is in the [Frontend](https://github.com/ananafrida/comp-333-3-frontend). 
 
 ## Overview
 
-As stated before the given repository contains code for the backend. The project structure is as follows:
+The project structure is as follows:
 
 - Controller
   - Api
@@ -92,50 +88,6 @@ Note because of `_SESSION_ID`, you need to login or register before using the mu
   - Type: POST
   - Parameters: `{id: int}`
   - Response: `{success: bool}`
-
-
-## Testing
-
-For testing this backend API, we used PHPUnitTest as per the homework 5 requirements. Before you run the test, please at make sure your database meets the given requirements. This are essential for some of the tests.: <br />
-<br />
-1. In the users table add the following user:
-```json
-{
-  "username": "test1",
-  "password": "1234567890",
-}
-```
-**Please Create the user using the register endpoint to make sure that the password is hashed and salted before being saved in the database. If entered manually it will lead to failing tests. (The comment in bold was added after the homework deadline for clarification. No changes to code are made.)**
-2. Do not have a user in the `users` table with the username `test2`. We will use this username to test registration. <br />
-3. Have the following songs in the `ratings` table of the database
-```json
-{
-  "id" : 55,
-  "username" : "test1"
-  "artist" : "artist_1",
-  "song" : "song_1",
-  "rating" : "1",
-}
-
-{
-  "id" : 56,
-  "username" : "test1"
-  "artist" : "artist_2",
-  "song" : "song_2",
-  "rating" : "2",
-}
-```
-4. Do not have a song with the following info `{ 'artist' : 'test_artist_4', 'song' : 'test_song_4', 'rating' : '4',}`.  We will create this in the test.
-
-That's it! Now run the commands: 
-```bash
-composer install
-./vendor/bin/phpunit tests
-``` 
-in the root directory
-and the test should run. Note that you should have the composer in path for this command to work.
-
-**NOTE**: All of my functions send a 200 OK request whenever a request is successful. Thus, I won't be checking for 201 but for 200. Also we didn't have a list users function in our backend, because it is not appropriate for the application. Instead we have a list function for music which I test instead.
 
 ## Conclusion
 
